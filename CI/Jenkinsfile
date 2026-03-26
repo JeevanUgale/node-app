@@ -131,6 +131,7 @@ pipeline {
                 sh '''
                 sleep 30
                 kubectl get all -n node
+                kubectl get ingress -n node
                 '''
             }
         }
