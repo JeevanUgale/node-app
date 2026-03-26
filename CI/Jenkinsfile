@@ -61,6 +61,15 @@ pipeline {
             }
         }
 
+        stage ('terraform destroy') {
+            steps {
+                sh '''
+                cd Iac
+                terraform destroy -auto-approve
+                '''
+            }
+        }
+
         stage ('Run Test') {
             steps {
                 sh '''
