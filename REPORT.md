@@ -32,6 +32,7 @@ Handles scaling and orchestration.
 
 Industry standard monitoring stack.
 
+
 ---
 
 ## Security
@@ -41,8 +42,6 @@ Trivy used to scan Docker images.
 ---
 
 ## Architecture
-
-
 
 Jenkins Pipeline: NodeJS App Deployment with Terraform, Docker, Kubernetes, and Monitoring
 
