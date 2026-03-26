@@ -1,0 +1,8 @@
+node_modules
+.env
+terraform.tfstate
+terraform.tfstate.backup
+*.log
+*.pem
+*.key
+.aws

@@ -115,6 +115,24 @@ pipeline {
                 }
             }
         }
+
+        stage ('Deploy to Kubernetes') {
+            steps {
+                sh '''
+                cd K8s
+                kubectl apply -f namespace.yml -f service.yml -f deployment.yml -f ingress.yml
+                '''
+            }
+        }
+
+        stage ('Validate Deployment') {
+            steps {
+                sh '''
+                sleep 30
+                kubectl get all -n node-app
+                '''
+            }
+        }
         stage ('clear workspace') {
             steps {
                 cleanWs()
