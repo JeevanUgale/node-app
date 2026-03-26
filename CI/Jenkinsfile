@@ -61,14 +61,14 @@ pipeline {
             }
         }
 
-        stage ('terraform destroy') {
-            steps {
-                sh '''
-                cd Iac
-                terraform destroy -auto-approve
-                '''
-            }
-        }
+        // stage ('terraform destroy') {
+        //     steps {
+        //         sh '''
+        //         cd Iac
+        //         terraform destroy -auto-approve
+        //         '''
+        //     }
+        // }
 
         stage ('Run Test') {
             steps {
@@ -147,10 +147,10 @@ pipeline {
                 '''
             }
         }
-        stage ('clear workspace') {
-            steps {
-                cleanWs()
-            }
-        }
+        // stage ('clear workspace') {
+        //     steps {
+        //         cleanWs()
+        //     }
+        // }
     }
 }
