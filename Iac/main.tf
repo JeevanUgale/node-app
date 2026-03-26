@@ -76,7 +76,7 @@ resource "aws_security_group" "sg" {
 # ---------------- IAM Role ----------------
 
 resource "aws_iam_role" "ec2_role" {
-  name = "ec2-ecr"
+  name = "ec2-ecr-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -93,11 +93,6 @@ resource "aws_iam_role" "ec2_role" {
 resource "aws_iam_role_policy_attachment" "ecr" {
   role       = aws_iam_role.ec2_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess"
-}
-
-resource "aws_iam_instance_profile" "profile" {
-  name = "ec2-profile"
-  role = aws_iam_role.ec2_role.name
 }
 
 # ---------------- EC2 ----------------
