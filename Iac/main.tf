@@ -108,8 +108,6 @@ resource "aws_instance" "ec2" {
 
   key_name = aws_key_pair.ec2_key.key_name
 
-  iam_instance_profile = aws_iam_instance_profile.profile.name
-
   tags = {
     Name = "devops-ec2"
   }
