@@ -129,7 +129,7 @@ pipeline {
         stage ('Validate Deployment') {
             steps {
                 sh '''
-                sleep 30
+                sleep 60
                 kubectl get all -n node
                 kubectl get ingress -n node
                 '''
