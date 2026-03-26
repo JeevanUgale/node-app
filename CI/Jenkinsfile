@@ -120,6 +120,7 @@ pipeline {
             steps {
                 sh '''
                 cd K8s
+                sed -i "s|IMAGE_NAME|$IMAGE_NAME|g; s|TAG|$TAG|g" deployment.yml
                 kubectl apply -f namespace.yml -f service.yml -f deployment.yml -f ingress.yml
                 '''
             }
@@ -129,7 +130,7 @@ pipeline {
             steps {
                 sh '''
                 sleep 30
-                kubectl get all -n node-app
+                kubectl get all -n node
                 '''
             }
         }
