@@ -12,6 +12,44 @@ pipeline {
     }
     
     stages {
+
+        stage ('Generate SSH Key for EC2') {
+            steps {
+                sh '''
+                cd Iac
+                ssh-keygen -t rsa -b 4096 -f jenkins_key -N ""
+                '''
+            }
+        }
+
+        stage ('Terraform Init and Validate') {
+            steps {
+                sh '''
+                cd Iac
+                terraform init
+                terraform validate
+                '''
+            }
+        }
+
+        stage ('Terraform Plan') {
+            steps {
+                sh '''
+                cd Iac
+                terraform plan -out=tfplan
+                '''
+            }
+        }
+
+        stage ('Terraform Apply') {
+            steps {
+                sh '''
+                cd Iac
+                terraform apply -auto-approve tfplan
+                '''
+            }
+        }
+
         stage ('Run Test') {
             steps {
                 sh '''
@@ -21,16 +59,19 @@ pipeline {
                 '''
             }
         }
+
         stage ('Build Docker Image') {
             steps {
                 sh 'docker build -t $IMAGE_NAME:$TAG -f docker/Dockerfile .'
             }
         }
+
         stage ('Trivy Image Security Scan') {
             steps {
                 sh 'trivy image $IMAGE_NAME:$TAG'
             }
         }
+
         stage ('Push Image') {
             steps {
                 script {
@@ -41,8 +82,8 @@ pipeline {
                 sh '''
                 docker push $IMAGE_NAME:$TAG
                 '''
-            }
-        }
+              }
+                }
             }
         }
     }
